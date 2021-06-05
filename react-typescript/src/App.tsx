@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { TodoForm } from "./components/TodoForm";
+import { TodoList } from "./components/TodoList";
+import { ITodo } from "./interfaces";
 
 const App: React.FC = () => {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  // const [todos, setTodos] = useState<Array<ITodo>>([]);
+
+  const addHandler = (title: string) => {
+    const newTodo: ITodo = {
+      title,
+      id: Date.now(),
+      completed: false,
+    };
+    // setTodos([newTodo, ...todos]);
+    setTodos((prev) => [newTodo, ...prev]);
+  };
+
   return (
     <>
       <Navbar />
       <div className="container">
-        <TodoForm></TodoForm>
+        <TodoForm onAdd={addHandler}></TodoForm>
+        <TodoList todos={todos}></TodoList>
       </div>
     </>
   );
