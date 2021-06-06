@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { TodoForm } from "./components/TodoForm";
 import { TodoList } from "./components/TodoList";
 import { ITodo } from "./interfaces";
 
+declare var confirm: (question: string) => boolean;
+
 const App: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   // const [todos, setTodos] = useState<Array<ITodo>>([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("todos") || "[]") as ITodo[];
+    setTodos(saved);
+    // return () => cleanup
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const addHandler = (title: string) => {
     const newTodo: ITodo = {
@@ -43,7 +55,12 @@ const App: React.FC = () => {
   };
 
   const removeHandler = (id: number) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    // const shouldRemove = window.confirm("Are you sure?");
+    const shouldRemove = confirm("Are you sure?");
+
+    if (shouldRemove) {
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    }
   };
 
   return (
