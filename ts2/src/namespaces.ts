@@ -1,0 +1,20 @@
+/// <reference path="form-namespace.ts"/>
+
+namespace FormNS {
+  class MyForm {
+    private type: FormType = "inline";
+    private state: FormState = "active";
+    constructor(public email: string) {}
+
+    getInfo(): FormInfo {
+      return {
+        type: this.type,
+        state: this.state,
+      };
+    }
+  }
+
+  export const form5 = new MyForm("qwe@qwe.qwe");
+}
+
+console.log(FormNS.form5);
