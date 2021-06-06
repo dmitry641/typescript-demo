@@ -1,18 +1,19 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export const Navbar: React.FunctionComponent = () => {
   return (
     <nav>
       <div className="nav-wrapper indigo px1">
-        <a href="/" className="brand-logo">
+        <NavLink to="/" className="brand-logo">
           React-typescript
-        </a>
+        </NavLink>
         <ul className="right hide-on-med-and-down">
           <li>
-            <a href="/">Todo list</a>
+            <NavLink to="/">Todo list</NavLink>
           </li>
           <li>
-            <a href="/">Information</a>
+            <NavLink to="/info">Information</NavLink>
           </li>
         </ul>
       </div>
