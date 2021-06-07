@@ -7,13 +7,14 @@ interface UserListProps {
 }
 
 const UserList: FC<UserListProps> = ({ users }) => {
-  return (
-    <div>
-      {users.map((user: IUser) => (
-        <UserItem key={user.id} user={user} />
-      ))}
-    </div>
-  );
+  return null;
+  // return (
+  //   <div>
+  //     {users.map((user: IUser) => (
+  //       <UserItem key={user.id} user={user} />
+  //     ))}
+  //   </div>
+  // );
 };
 
 export default UserList;

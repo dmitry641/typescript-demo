@@ -1,70 +1,45 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Card, { CardVariant } from "./components/Card";
 import EventExample from "./components/EventExample";
-import List from "./components/List";
-import TodoItem from "./components/TodoItem";
-import UserItem from "./components/UserItem";
 // import UserList from "./components/UserList";
-import { ITodo, IUser } from "./types/types";
+import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
+import UsersPage from "./components/UsersPage";
+import TodosPage from "./components/TodosPage";
+import UserItemPage from "./components/UserItemPage";
 
-const App = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    fetchUsers();
-    fetchTodos();
-  }, []);
-
-  async function fetchUsers() {
-    try {
-      const response = await axios.get<IUser[]>(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-
-      setUsers(response.data);
-    } catch (error) {
-      alert(error);
-    }
-  }
-  async function fetchTodos() {
-    try {
-      const response = await axios.get<ITodo[]>(
-        "https://jsonplaceholder.typicode.com/todos?_limit=10"
-      );
-
-      setTodos(response.data);
-    } catch (error) {
-      alert(error);
-    }
-  }
-
+const App: React.FC = () => {
   return (
-    <div>
-      <EventExample></EventExample>
-      <hr />
-      <Card
-        onClick={(num) => console.log("click", num)}
-        width="200px"
-        height="200px"
-        variant={CardVariant.outlined}
-      >
-        <button>Button</button>
-      </Card>
-      {/* <UserList users={users}></UserList> */}
-      <hr />
+    <BrowserRouter>
       <div style={{ display: "flex" }}>
-        <List
-          items={users}
-          renderItem={(user: IUser) => <UserItem key={user.id} user={user} />}
-        ></List>
-        <List
-          items={todos}
-          renderItem={(todo: ITodo) => <TodoItem key={todo.id} todo={todo} />}
-        ></List>
+        <div>
+          <EventExample></EventExample>
+          <hr />
+          <Card
+            onClick={(num) => console.log("click", num)}
+            width="200px"
+            height="200px"
+            variant={CardVariant.outlined}
+          >
+            <button>Button</button>
+          </Card>
+          {/* <UserList users={users}></UserList> */}
+        </div>
+        <div>
+          <ul>
+            <li>
+              <NavLink to="/todos">Todos</NavLink>
+            </li>
+            <li>
+              <NavLink to="/users">Users</NavLink>
+            </li>
+          </ul>
+
+          <Route component={UsersPage} path="/users" exact></Route>
+          <Route component={TodosPage} path="/todos" exact></Route>
+          <Route component={UserItemPage} path="/users/:id"></Route>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
 
