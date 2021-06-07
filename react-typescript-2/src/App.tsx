@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card, { CardVariant } from "./components/Card";
+import EventExample from "./components/EventExample";
 import List from "./components/List";
 import TodoItem from "./components/TodoItem";
 import UserItem from "./components/UserItem";
@@ -41,6 +42,8 @@ const App = () => {
 
   return (
     <div>
+      <EventExample></EventExample>
+      <hr />
       <Card
         onClick={(num) => console.log("click", num)}
         width="200px"
@@ -50,6 +53,7 @@ const App = () => {
         <button>Button</button>
       </Card>
       {/* <UserList users={users}></UserList> */}
+      <hr />
       <div style={{ display: "flex" }}>
         <List
           items={users}
